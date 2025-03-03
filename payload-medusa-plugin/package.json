@@ -19,6 +19,26 @@
       "import": "./src/exports/rsc.ts",
       "types": "./src/exports/rsc.ts",
       "default": "./src/exports/rsc.ts"
+    },
+    "./components/CustomAdminUI": {
+      "import": "./src/components/CustomAdminUI.tsx",
+      "types": "./src/components/CustomAdminUI.tsx",
+      "default": "./src/components/CustomAdminUI.tsx"
+    },
+    "./components/ManageProducts": {
+      "import": "./src/components/ManageProducts.tsx",
+      "types": "./src/components/ManageProducts.tsx",
+      "default": "./src/components/ManageProducts.tsx"
+    },
+    "./components/ShippingProfiles": {
+      "import": "./src/components/ShippingProfiles.tsx",
+      "types": "./src/components/ShippingProfiles.tsx",
+      "default": "./src/components/ShippingProfiles.tsx"
+    },
+    "./components/ListProducts": {
+      "import": "./src/components/ListProducts.tsx",
+      "types": "./src/components/ListProducts.tsx",
+      "default": "./src/components/ListProducts.tsx"
     }
   },
   "main": "./src/index.ts",
@@ -52,10 +72,11 @@
     "@payloadcms/ui": "3.17.1",
     "@swc-node/register": "1.10.9",
     "@swc/cli": "0.6.0",
+    "@swc/core": "^1.11.5",
     "@swc/jest": "^0.2.37",
     "@types/jest": "29.5.12",
     "@types/node": "^22.5.4",
-    "@types/react": "19.0.7",
+    "@types/react": "^19.0.7",
     "@types/react-dom": "19.0.3",
     "copyfiles": "2.4.1",
     "cross-env": "^7.0.3",
@@ -64,7 +85,7 @@
     "graphql": "^16.8.1",
     "jest": "29.7.0",
     "mongodb-memory-server": "^10.1.2",
-    "next": "15.1.5",
+    "next": "^15.1.5",
     "open": "^10.1.0",
     "payload": "3.17.1",
     "prettier": "^3.4.2",
@@ -77,7 +98,9 @@
     "typescript": "5.7.3"
   },
   "peerDependencies": {
-    "payload": "^3.17.1"
+    "payload": "^3.17.1",
+    "medusajs/js-sdk": "^2.5.1",
+    "medusajs/types": "^2.5.1"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0",
@@ -109,5 +132,11 @@
       "sharp"
     ]
   },
-  "registry": "https://registry.npmjs.org/"
+  "registry": "https://registry.npmjs.org/",
+  "dependencies": {
+    "@medusajs/js-sdk": "^2.5.1",
+    "@medusajs/types": "^2.5.1",
+    "@tanstack/react-query": "^5.66.11",
+    "dotenv": "^16.4.7"
+  }
 }

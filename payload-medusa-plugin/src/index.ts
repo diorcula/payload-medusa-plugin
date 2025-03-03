@@ -1,4 +1,5 @@
 import type { CollectionSlug, Config } from 'payload'
+import { CustomAdminUI } from './components/CustomAdminUI.tsx'
 
 export type PayloadMedusaPluginConfig = {
   /**
@@ -10,7 +11,10 @@ export type PayloadMedusaPluginConfig = {
 
 export const payloadMedusaPlugin =
   (pluginOptions: PayloadMedusaPluginConfig) =>
-  (config: Config): Config => {
+  (incomingConfig: Config): Config => {
+    // create copy of incoming config
+    let config = { ...incomingConfig }
+
     if (!config.collections) {
       config.collections = []
     }
@@ -43,10 +47,6 @@ export const payloadMedusaPlugin =
       }
     }
 
-    /**
-     * If the plugin is disabled, we still want to keep added collections/fields so the database schema is consistent which is important for migrations.
-     * If your plugin heavily modifies the database schema, you may want to remove this property.
-     */
     if (pluginOptions.disabled) {
       return config
     }
@@ -70,9 +70,7 @@ export const payloadMedusaPlugin =
     config.admin.components.beforeDashboard.push(
       `payload-medusa-plugin/client#BeforeDashboardClient`,
     )
-    config.admin.components.beforeDashboard.push(
-      `payload-medusa-plugin/rsc#BeforeDashboardServer`,
-    )
+    config.admin.components.beforeDashboard.push(`payload-medusa-plugin/rsc#BeforeDashboardServer`)
 
     config.endpoints.push({
       handler: () => {
@@ -109,5 +107,24 @@ export const payloadMedusaPlugin =
       }
     }
 
+    // Add the custom admin UI component as a view
+    config.admin = {
+      ...config.admin,
+      components: {
+        ...config.admin?.components,
+        // afterNavLinks: ['src/components/afterNavLinks/LinkToCustomView.tsx'],
+        views: {
+          ...config.admin?.components?.views,
+          myCustomView: {
+            Component: 'payload-medusa-plugin/components/CustomAdminUI#CustomAdminUI', // This is the path to the view component
+            path: '/medusa-plugin', // This is the path where the view will be accessible in the admin: admin/medusa-products
+          },
+        },
+      },
+    }
+
+    // Finally, return the modified config
     return config
   }
+
+export default payloadMedusaPlugin
