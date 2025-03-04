@@ -1,5 +1,4 @@
 import type { CollectionSlug, Config } from 'payload'
-import { CustomAdminUI } from './components/CustomAdminUI.tsx'
 
 export type PayloadMedusaPluginConfig = {
   /**
