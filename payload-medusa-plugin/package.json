@@ -39,6 +39,11 @@
       "import": "./src/components/ListProducts.tsx",
       "types": "./src/components/ListProducts.tsx",
       "default": "./src/components/ListProducts.tsx"
+    },
+    "./utils/medusa-config": {
+      "import": "./src/utils/medusa-config.ts",
+      "types": "./src/utils/medusa-config.ts",
+      "default": "./src/utils/medusa-config.ts"
     }
   },
   "main": "./src/index.ts",
@@ -47,7 +52,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm copyfiles && pnpm build:types && pnpm build:swc",
+    "build": "pnpm copyfiles && pnpm build:types && pnpm build:swc && npm run resolve:aliases && medusa build",
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
     "build:types": "tsc --outDir dist --rootDir ./src",
     "clean": "rimraf {dist,*.tsbuildinfo}",
@@ -59,7 +64,8 @@
     "lint": "eslint",
     "lint:fix": "eslint ./src --fix",
     "prepublishOnly": "pnpm clean && pnpm build",
-    "test": "jest"
+    "test": "jest",
+    "resolve:aliases": "tsc --showConfig -p tsconfig.json > tsconfig.resolved.json && tsc-alias -p tsconfig.resolved.json && rimraf tsconfig.resolved.json"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -95,7 +101,9 @@
     "rimraf": "3.0.2",
     "sharp": "0.32.6",
     "sort-package-json": "^2.10.0",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "@medusajs/js-sdk": "^2.5.1",
+    "@medusajs/types": "^2.5.1"
   },
   "peerDependencies": {
     "payload": "^3.17.1"
